@@ -47,13 +47,17 @@ def md5(fn):
 
 
 def upload(url, username, password, local_fn, remote_fn):
-    upload_status_code = sp.check_output([
-        'curl', '--silent', '--output', '/dev/stderr',
+    cmd = [
+        'curl', '-v', '--output', '/dev/stderr',
         '--write-out', '%{http_code}',
         '-u', '{}:{}'.format(username, password),
         '--upload-file', local_fn,
         urljoin(url, remote_fn)
-    ]).decode().strip()
+    ]
+    print('### DEBUG ###')
+    print(cmd)
+    print('#############')
+    upload_status_code = sp.check_output().decode().strip()
 
     if upload_status_code != '201':
         raise Exception('upload of {} failed, got HTTP status code {}'.format(
