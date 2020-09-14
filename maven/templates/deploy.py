@@ -57,7 +57,7 @@ def upload(url, username, password, local_fn, remote_fn):
     print('### DEBUG ###')
     print(cmd)
     print('#############')
-    upload_status_code = sp.check_output().decode().strip()
+    upload_status_code = sp.check_output(cmd).decode().strip()
 
     if upload_status_code != '201':
         raise Exception('upload of {} failed, got HTTP status code {}'.format(
